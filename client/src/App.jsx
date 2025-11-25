@@ -1,6 +1,8 @@
-import Categories from "./components/categories/Categories"
+import { Route, Routes } from "react-router-dom"
 import Navigation from "./components/navigation/Navigation"
-import Posts from "./components/posts/Posts"
+import Login from "./components/login/Login"
+import Register from "./components/register/Register"
+import Home from "./components/home/Home"
 
 function App() {
   return (
@@ -9,14 +11,14 @@ function App() {
 
         <Navigation />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <Categories />
-
-            <Posts />
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
       </div>
+
+
     </>
   )
 }
