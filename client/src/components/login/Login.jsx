@@ -1,4 +1,34 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import useForm from "../../hooks/useForm";
+import UserContext from "../../contexts/UserContext";
+
 export default function Login() {
+    const navigate = useNavigate();
+    const { loginHandler } = useContext(UserContext);
+
+    const submitHandler = async ({ email, password }) => {
+        if (!email || !password) {
+            return alert('Email and password are required!');
+        }
+
+        try {
+            await loginHandler(email, password);
+
+            navigate('/');
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    const {
+        register,
+        formAction,
+    } = useForm(submitHandler, {
+        email: '',
+        password: '',
+    });
+
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
             {/* Login Form */}
@@ -6,7 +36,7 @@ export default function Login() {
                 <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
                     <h2 className="text-2xl font-bold text-white mb-6">Welcome Back</h2>
 
-                    <form className="space-y-6">
+                    <form className="space-y-6" action={formAction}>
                         {/* Email */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
@@ -15,7 +45,7 @@ export default function Login() {
                             <input
                                 type="email"
                                 id="email"
-                                name="email"
+                                {...register('email')}
                                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 placeholder="your@email.com"
                             />
@@ -29,34 +59,16 @@ export default function Login() {
                             <input
                                 type="password"
                                 id="password"
-                                name="password"
+                                {...register('password')}
                                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 placeholder="Enter your password"
                             />
                         </div>
 
-                        {/* Remember Me & Forgot Password */}
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id="remember"
-                                    className="h-4 w-4 bg-gray-700 border-gray-600 rounded text-blue-600 focus:ring-blue-500"
-                                />
-                                <label htmlFor="remember" className="ml-2 text-sm text-gray-300">
-                                    Remember me
-                                </label>
-                            </div>
-                            <a href="#" className="text-sm text-blue-500 hover:text-blue-400">
-                                Forgot password?
-                            </a>
-                        </div>
-
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-md font-medium transition-colors"
-                        >
+                            className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-md font-medium transition-colors">
                             Login
                         </button>
                     </form>
