@@ -1,0 +1,26 @@
+{
+  "members": {
+    "cc9b0a0f-655d-45d7-9857-0a61c6bb2c4d": {
+      "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+      "teamId": "34a1cab1-81f1-47e5-aec3-ab6c9810efe1",
+      "status": "member",
+      "_createdOn": 1616236790262,
+      "_updatedOn": 1616236792930
+    },
+    "61a19986-3b86-4347-8ca4-8c074ed87591": {
+      "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
+      "teamId": "dc888b1a-400f-47f3-9619-07607966feb8",
+      "status": "member",
+      "_createdOn": 1616237188183,
+      "_updatedOn": 1616237189016
+    }
+  },
+  "posts": {
+    "b2b5893f-ca33-4465-967e-3acc66b02758": {
+      "_ownerId": "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
+      "Title": "Test post",
+      "Content": "Test post content",
+      "_createdOn": 1764426083332
+    }
+  }
+}

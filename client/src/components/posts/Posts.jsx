@@ -1,12 +1,19 @@
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+
 export default function Posts() {
+    const { isAuthenticated } = useContext(UserContext);
+
     return (
         <div className="lg:col-span-3">
-            {/* Create Post Button */}
-            <div className="mb-6">
-                <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md font-medium transition-colors">
-                    + Create New Post
-                </button>
-            </div>
+
+            {isAuthenticated && (
+                <div className="mb-6">
+                    <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md font-medium transition-colors">
+                        + Create New Post
+                    </button>
+                </div>
+            )}
 
             {/* Posts List */}
             <div className="space-y-4">

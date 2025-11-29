@@ -42,7 +42,7 @@ export function UserProvider({ children }) {
 
     const userCOntextValues = {
         user,
-        isAuthenticated: user?.accessToken !== null,
+        isAuthenticated: user?.accessToken != null,
         registerHandler,
         loginHandler,
         logoutHandler,
