@@ -18,8 +18,8 @@
   "posts": {
     "b2b5893f-ca33-4465-967e-3acc66b02758": {
       "_ownerId": "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
-      "Title": "Test post",
-      "Content": "Test post content",
+      "title": "Test post",
+      "content": "Test post content",
       "_createdOn": 1764426083332
     }
   }
