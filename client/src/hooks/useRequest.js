@@ -6,6 +6,7 @@ const baseUrl = 'http://localhost:3030';
 export default function useRequest(endpoint, initialState) {
     const { user, isAuthenticated } = useContext(UserContext);
     const [data, setData] = useState(initialState);
+    const [loading, setLoading] = useState(false);
 
     const request = async (endpoint, method, data, config = {}) => {
         let options = {};
@@ -50,14 +51,17 @@ export default function useRequest(endpoint, initialState) {
             return;
         }
 
+        setLoading(true);
         request(endpoint)
             .then(result => setData(result))
-            .catch(err => alert(err));
+            .catch(err => alert(err))
+            .finally(() => setLoading(false));
     }, [endpoint]);
 
     return {
         request,
         data,
         setData,
+        loading,
     }
 }

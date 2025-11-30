@@ -16,25 +16,13 @@
     }
   },
   "posts": {
-    "b2b5893f-ca33-4465-967e-3acc66b02758": {
+    "e6a9f160-fed2-4a98-9877-88916b34ba1b": {
       "_ownerId": "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
-      "title": "Test post",
-      "content": "Test post content",
-      "_createdOn": 1764426083332
-    },
-    "28027596-5ac9-49ec-b93a-fd209a7b091f": {
-      "_ownerId": "3b162d12-94b4-48b1-90fd-c12b020a3688",
       "category": "TestCategory",
-      "title": "TestTitle",
-      "content": "Test Content",
-      "_createdOn": 1764496590348
-    },
-    "abe67222-f485-48e6-a8b1-0542803bd891": {
-      "_ownerId": "a16cec80-7b9e-49be-807a-ecc1715d023e",
-      "category": "TestCategory",
-      "title": "asdasdasd",
-      "content": "asdasdasdasd",
-      "_createdOn": 1764497335634
+      "title": "Test Post 1",
+      "content": "Test Post 2",
+      "_createdOn": 1764506840563,
+      "_updatedOn": 1764506850648
     }
   }
 }

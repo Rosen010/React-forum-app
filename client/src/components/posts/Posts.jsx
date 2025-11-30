@@ -23,7 +23,6 @@ export default function Posts() {
                 </div>
             )}
 
-            {/* Posts List */}
             <div className="space-y-4">
                 {posts.map(post => <PostItem key={post._id} post={post} />)}
             </div>
