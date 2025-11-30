@@ -4,8 +4,12 @@ import useRequest from "../../hooks/useRequest";
 import PostItem from "../postItem/PostItem";
 
 export default function Posts() {
+    const urlParams = new URLSearchParams({
+        load: 'author=_ownerId:users'
+    });
+
     const { isAuthenticated } = useContext(UserContext);
-    const { data: posts } = useRequest('/data/posts', [])
+    const { data: posts } = useRequest(`/data/posts?${urlParams.toString()}`, [])
 
     return (
         <div className="lg:col-span-3">
@@ -20,7 +24,7 @@ export default function Posts() {
 
             {/* Posts List */}
             <div className="space-y-4">
-                {posts.map(post => <PostItem key={post._id} {...post} />)}
+                {posts.map(post => <PostItem key={post._id} post={post} />)}
             </div>
         </div>
     );
