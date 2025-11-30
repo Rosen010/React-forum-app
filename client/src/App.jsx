@@ -5,6 +5,7 @@ import Register from "./components/register/Register"
 import Home from "./components/home/Home"
 import Logout from "./components/logout/Logout"
 import Footer from "./components/footer/Footer"
+import CreatePost from "./components/createPost/CreatePost"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/create-post" element={<CreatePost />} />
         </Routes>
       </div>
       <Footer />

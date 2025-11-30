@@ -17,7 +17,7 @@ export default function PostItem({ post }) {
                         {content}
                     </p>
                     <div className="flex items-center space-x-4 text-sm text-gray-400">
-                        <span>By: {author.username}</span>
+                        <span>By: {author.email}</span>
                         <span>•</span>
                         <span>{new Date(_createdOn).toLocaleString()}</span>
                     </div>
@@ -25,7 +25,7 @@ export default function PostItem({ post }) {
                 <div className="ml-4">
                     <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center">
                         <span className="text-sm font-medium">
-                            {author.username
+                            {author.email
                                 .split(' ')
                                 .map(n => n[0])
                                 .join('')

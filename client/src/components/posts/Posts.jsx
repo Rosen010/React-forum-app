@@ -2,6 +2,7 @@ import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import useRequest from "../../hooks/useRequest";
 import PostItem from "../postItem/PostItem";
+import { Link } from "react-router-dom";
 
 export default function Posts() {
     const urlParams = new URLSearchParams({
@@ -16,9 +17,9 @@ export default function Posts() {
 
             {isAuthenticated && (
                 <div className="mb-6">
-                    <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md font-medium transition-colors">
+                    <Link to="/create-post" className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md font-medium transition-colors">
                         + Create New Post
-                    </button>
+                    </Link>
                 </div>
             )}
 
