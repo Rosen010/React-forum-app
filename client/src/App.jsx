@@ -6,6 +6,7 @@ import Home from "./components/home/Home"
 import Logout from "./components/logout/Logout"
 import Footer from "./components/footer/Footer"
 import CreatePost from "./components/createPost/CreatePost"
+import PostDetails from "./components/postDetails/PostDetails"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/posts/:postId" element={<PostDetails/>} />
         </Routes>
       </div>
       <Footer />
