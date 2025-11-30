@@ -4,14 +4,13 @@ import Login from "./components/login/Login"
 import Register from "./components/register/Register"
 import Home from "./components/home/Home"
 import Logout from "./components/logout/Logout"
+import Footer from "./components/footer/Footer"
 
 function App() {
   return (
     <>
       <div className="min-h-screen bg-gray-900 text-gray-100">
-
         <Navigation />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -19,8 +18,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </div>
-
-
+      <Footer />
     </>
   )
 }
