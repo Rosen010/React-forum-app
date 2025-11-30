@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import UserContext from "../../contexts/UserContext";
 
@@ -31,13 +31,12 @@ export default function Login() {
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
-            {/* Login Form */}
             <div className="max-w-md mx-auto px-4 py-12">
                 <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
                     <h2 className="text-2xl font-bold text-white mb-6">Welcome Back</h2>
 
                     <form className="space-y-6" action={formAction}>
-                        {/* Email */}
+
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                                 Email
@@ -51,7 +50,6 @@ export default function Login() {
                             />
                         </div>
 
-                        {/* Password */}
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                                 Password
@@ -64,8 +62,6 @@ export default function Login() {
                                 placeholder="Enter your password"
                             />
                         </div>
-
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-md font-medium transition-colors">
@@ -73,13 +69,12 @@ export default function Login() {
                         </button>
                     </form>
 
-                    {/* Register Link */}
                     <div className="mt-6 text-center">
                         <p className="text-gray-400 text-sm">
                             Don't have an account?{' '}
-                            <a href="#" className="text-blue-500 hover:text-blue-400 font-medium">
+                            <Link to="/register" className="text-blue-500 hover:text-blue-400 font-medium">
                                 Register here
-                            </a>
+                            </Link>
                         </p>
                     </div>
                 </div>

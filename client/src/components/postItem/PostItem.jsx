@@ -23,14 +23,24 @@ export default function PostItem({ post }) {
                     </div>
                 </div>
                 <div className="ml-4">
-                    <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center">
-                        <span className="text-sm font-medium">
-                            {author.email
-                                .split(' ')
-                                .map(n => n[0])
-                                .join('')
-                                .toUpperCase()}</span>
-                    </div>
+                    {author.profilePicture ? (
+                        <div className="ml-4">
+                            <img
+                                src={author.profilePicture}
+                                alt={author.email}
+                                className="w-12 h-12 rounded-full object-cover border border-gray-600"
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center">
+                            <span className="text-sm font-medium">
+                                {author.email
+                                    .split(' ')
+                                    .map(n => n[0])
+                                    .join('')
+                                    .toUpperCase()}</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div >

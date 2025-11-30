@@ -19,8 +19,8 @@ export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const { request } = useRequest();
 
-    const registerHandler = async (email, password) => {
-        const newUser = { email, password };
+    const registerHandler = async (email, password, profilePicture) => {
+        const newUser = { email, password, profilePicture };
 
         const result = await request('/users/register', 'POST', newUser);
 

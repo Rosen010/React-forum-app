@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import useForm from "../../hooks/useForm";
 
@@ -8,7 +8,7 @@ export default function Register() {
     const { registerHandler } = useContext(UserContext);
 
     const registerSubmitHandler = async (values) => {
-        const { email, password, confirmPassword } = values;
+        const { email, password, confirmPassword, profilePicture } = values;
 
         if (!email || !password) {
             return alert('Email and password are required!');
@@ -19,7 +19,7 @@ export default function Register() {
         }
 
         try {
-            await registerHandler(email, password);
+            await registerHandler(email, password, profilePicture);
 
             navigate('/');
         } catch (err) {
@@ -34,19 +34,18 @@ export default function Register() {
         email: '',
         password: '',
         confirmPassword: '',
+        profilePicture: '',
     });
 
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
 
-            {/* Registration Form */}
             <div className="max-w-md mx-auto px-4 py-12">
                 <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
                     <h2 className="text-2xl font-bold text-white mb-6">Create Account</h2>
 
                     <form className="space-y-6" action={formAction}>
-                        {/* Email */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                                 Email
@@ -60,7 +59,6 @@ export default function Register() {
                             />
                         </div>
 
-                        {/* Password */}
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                                 Password
@@ -74,7 +72,6 @@ export default function Register() {
                             />
                         </div>
 
-                        {/* Confirm Password */}
                         <div>
                             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
                                 Confirm Password
@@ -88,22 +85,32 @@ export default function Register() {
                             />
                         </div>
 
-                        {/* Submit Button */}
+                        <div>
+                            <label htmlFor="profilePicture" className="block text-sm font-medium text-gray-300 mb-2">
+                                Profile Picture Link
+                            </label>
+                            <input
+                                type="text"
+                                id="profilePicture"
+                                {...register('profilePicture')}
+                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Profile Picture Link"
+                            />
+                        </div>
+
                         <button
                             type="submit"
-                            className="w-full bg-green-600 hover:bg-green-700 px-4 py-3 rounded-md font-medium transition-colors"
-                        >
+                            className="w-full bg-green-600 hover:bg-green-700 px-4 py-3 rounded-md font-medium transition-colors">
                             Register
                         </button>
                     </form>
 
-                    {/* Login Link */}
                     <div className="mt-6 text-center">
                         <p className="text-gray-400 text-sm">
                             Already have an account?{' '}
-                            <a href="#" className="text-blue-500 hover:text-blue-400 font-medium">
+                            <Link to="/login" className="text-blue-500 hover:text-blue-400 font-medium">
                                 Login here
-                            </a>
+                            </Link>
                         </p>
                     </div>
                 </div>
