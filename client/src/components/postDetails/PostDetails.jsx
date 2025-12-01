@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import UserContext from "../../contexts/UserContext";
+import { getUserInitials } from "../../utils/userUtils";
 
 export default function PostDetails() {
     const { postId } = useParams();
@@ -88,11 +89,7 @@ export default function PostDetails() {
                             ) : (
                                 <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center">
                                     <span className="text-sm font-medium">
-                                        {post.author.email
-                                            .split(' ')
-                                            .map(n => n[0])
-                                            .join('')
-                                            .toUpperCase()}
+                                        {getUserInitials(post.author.email)}
                                     </span>
                                 </div>
                             )}

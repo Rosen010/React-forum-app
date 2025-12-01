@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
+import { getUserInitials } from "../../utils/userUtils";
 
 function GuestLinks() {
     return (
@@ -21,9 +22,24 @@ function GuestLinks() {
 function AuthLinks({ user }) {
     return (
         <>
-            <span className="text-gray-300 text-sm">
-                {user?.email}
-            </span>
+            <Link
+                to="/profile"
+                className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors">
+                {user?.profilePicture ? (
+                    <img
+                        src={user.profilePicture}
+                        alt={user.email}
+                        className="w-8 h-8 rounded-full object-cover border border-gray-600"
+                    />
+                ) : (
+                    <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                        <span className="text-xs font-medium">
+                            {getUserInitials(user?.email)}
+                        </span>
+                    </div>
+                )}
+                <span>{user?.email}</span>
+            </Link>
             <Link
                 to="/logout"
                 className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors">

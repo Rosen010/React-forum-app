@@ -6,7 +6,7 @@ const UserContext = createContext({
     user: {
         email: '',
         password: '',
-        _createdOd: 0,
+        _createdOn: 0,
         _id: '',
         accessToken: '',
     },

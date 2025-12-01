@@ -8,6 +8,7 @@ import Footer from "./components/footer/Footer"
 import PostCreate from "./components/postCreate/PostCreate"
 import PostDetails from "./components/postDetails/PostDetails"
 import PostEdit from "./components/postEdit/PostEdit"
+import Profile from "./components/profile/Profile"
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/create-post" element={<PostCreate />} />
-          <Route path="/posts/:postId" element={<PostDetails/>} />
+          <Route path="/posts/:postId" element={<PostDetails />} />
           <Route path="/posts/:postId/edit" element={<PostEdit />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
       <Footer />
