@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { getUserInitials } from "../../utils/userUtils";
+import UserPosts from "../userPosts/UserPosts";
 
 export default function Profile() {
     const { user, isAuthenticated } = useUserContext();
@@ -63,6 +64,10 @@ export default function Profile() {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="mt-8">
+                    <UserPosts userId={user._id} />
                 </div>
             </div>
         </div>
