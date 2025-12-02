@@ -40,7 +40,7 @@ export function UserProvider({ children }) {
             .finally(() => setUser(null));
     }
 
-    const userCOntextValues = {
+    const userContextValues = {
         user,
         isAuthenticated: user?.accessToken != null,
         registerHandler,
@@ -49,7 +49,7 @@ export function UserProvider({ children }) {
     }
 
     return (
-        <UserContext.Provider value={userCOntextValues} >
+        <UserContext.Provider value={userContextValues} >
             {children}
         </UserContext.Provider>
     );

@@ -22,7 +22,7 @@ export default function UserPosts({ userId }) {
     return (
         <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
             <h2 className="text-2xl font-bold text-white mb-6">My Posts</h2>
-            
+
             {userPosts && userPosts.length > 0 ? (
                 <div className="space-y-4">
                     {userPosts.map(post => (

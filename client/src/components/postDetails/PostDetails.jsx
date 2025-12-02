@@ -1,14 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import UserContext from "../../contexts/UserContext";
 import { getUserInitials } from "../../utils/userUtils";
+import Comments from "../comments/Comments";
+import CommentForm from "../comments/CommentForm";
 
 export default function PostDetails() {
     const { postId } = useParams();
     const navigate = useNavigate();
     const { user, isAuthenticated } = useContext(UserContext);
     const { request } = useRequest();
+    const [refreshComments, setRefreshComments] = useState(0);
 
     const urlParams = new URLSearchParams({
         load: 'author=_ownerId:users'
@@ -29,6 +32,11 @@ export default function PostDetails() {
         } catch (err) {
             alert('Failed to delete post: ' + err);
         }
+    };
+
+    const handleCommentAdded = () => {
+        // Trigger comments refresh by updating state
+        setRefreshComments(prev => prev + 1);
     };
 
     if (loading) {
@@ -124,11 +132,9 @@ export default function PostDetails() {
                     )}
                 </div>
 
-                <div className="mt-8 bg-gray-800 rounded-lg border border-gray-700 p-8">
-                    <h2 className="text-xl font-bold text-white mb-4">Comments</h2>
-                    <p className="text-gray-400 text-center py-8">
-                        Comments feature coming soon...
-                    </p>
+                <div className="mt-8 space-y-6">
+                    <Comments postId={postId} key={refreshComments} />
+                    <CommentForm postId={postId} onCommentAdded={handleCommentAdded} />
                 </div>
             </div>
         </div>
