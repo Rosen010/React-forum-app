@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import useRequest from "../hooks/useRequest";
 
 const UserContext = createContext({
@@ -15,9 +15,24 @@ const UserContext = createContext({
     logoutHandler() { },
 });
 
+const USER_STORAGE_KEY = 'forumApp_user';
+
 export function UserProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+
     const { request } = useRequest();
+
+    // Sync user state to localStorage whenever it changes
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+        } else {
+            localStorage.removeItem(USER_STORAGE_KEY);
+        }
+    }, [user]);
 
     const registerHandler = async (email, password, profilePicture) => {
         const newUser = { email, password, profilePicture };
