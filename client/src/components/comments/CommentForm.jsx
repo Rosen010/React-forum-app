@@ -1,10 +1,10 @@
+import { useCommentsContext } from "../../contexts/CommentsContext";
 import { useUserContext } from "../../contexts/UserContext";
 import useForm from "../../hooks/useForm";
-import useRequest from "../../hooks/useRequest";
 
-export default function CommentForm({ postId, onCommentAdded }) {
+export default function CommentForm({ postId }) {
     const { isAuthenticated, user } = useUserContext();
-    const { request } = useRequest();
+    const { addComment } = useCommentsContext();
 
     const addCommentHandler = async ({ content }) => {
         if (!content.trim()) {
@@ -23,13 +23,10 @@ export default function CommentForm({ postId, onCommentAdded }) {
                 },
             };
 
-            await request('/jsonstore/comments', 'POST', newComment);
+            await addComment(newComment);
             
-            // Reset form and notify parent
+            // Reset form
             setValues({ content: '' });
-            if (onCommentAdded) {
-                onCommentAdded();
-            }
         } catch (err) {
             alert('Failed to add comment: ' + err.message);
         }

@@ -5,6 +5,7 @@ import UserContext from "../../contexts/UserContext";
 import { getUserInitials } from "../../utils/userUtils";
 import Comments from "../comments/Comments";
 import CommentForm from "../comments/CommentForm";
+import { CommentsProvider } from "../../contexts/CommentsContext";
 
 export default function PostDetails() {
     const { postId } = useParams();
@@ -32,11 +33,6 @@ export default function PostDetails() {
         } catch (err) {
             alert('Failed to delete post: ' + err);
         }
-    };
-
-    const handleCommentAdded = () => {
-        // Trigger comments refresh by updating state
-        setRefreshComments(prev => prev + 1);
     };
 
     if (loading) {
@@ -132,9 +128,11 @@ export default function PostDetails() {
                     )}
                 </div>
 
-                <div className="mt-8 space-y-6">
-                    <Comments postId={postId} key={refreshComments} />
-                    <CommentForm postId={postId} onCommentAdded={handleCommentAdded} />
+               <div className="mt-8 space-y-6">
+                    <CommentsProvider postId={postId}>
+                        <Comments />
+                        <CommentForm postId={postId} />
+                    </CommentsProvider>
                 </div>
             </div>
         </div>
