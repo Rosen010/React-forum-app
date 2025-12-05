@@ -34,9 +34,7 @@ export default function useRequest(endpoint, initialState) {
 
         // Handle authentication errors (expired/invalid token)
         if (response.status === 401 || response.status === 403) {
-            console.warn('Authentication error - clearing expired session');
             clearSession();
-            throw new Error('Your session has expired. Please login again.');
         }
 
         if (!response.ok) {
