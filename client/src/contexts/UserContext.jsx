@@ -13,6 +13,7 @@ const UserContext = createContext({
     registerHandler() { },
     loginHandler() { },
     logoutHandler() { },
+    clearSession() { },
 });
 
 const USER_STORAGE_KEY = 'forumApp_user';
@@ -55,12 +56,18 @@ export function UserProvider({ children }) {
             .finally(() => setUser(null));
     }
 
+    // Clear session without making API call (for expired tokens)
+    const clearSession = () => {
+        setUser(null);
+    }
+
     const userContextValues = {
         user,
         isAuthenticated: user?.accessToken != null,
         registerHandler,
         loginHandler,
         logoutHandler,
+        clearSession,
     }
 
     return (

@@ -4,7 +4,7 @@ import UserContext from "../contexts/UserContext";
 const baseUrl = 'http://localhost:3030';
 
 export default function useRequest(endpoint, initialState) {
-    const { user, isAuthenticated } = useContext(UserContext);
+    const { user, isAuthenticated, clearSession } = useContext(UserContext);
     const [data, setData] = useState(initialState);
     const [loading, setLoading] = useState(false);
 
@@ -32,6 +32,13 @@ export default function useRequest(endpoint, initialState) {
 
         const response = await fetch(`${baseUrl}${endpoint}`, options);
 
+        // Handle authentication errors (expired/invalid token)
+        if (response.status === 401 || response.status === 403) {
+            console.warn('Authentication error - clearing expired session');
+            clearSession();
+            throw new Error('Your session has expired. Please login again.');
+        }
+
         if (!response.ok) {
             console.log(response);
             throw response.statusText;
@@ -54,7 +61,13 @@ export default function useRequest(endpoint, initialState) {
         setLoading(true);
         request(endpoint)
             .then(result => setData(result))
-            .catch(err => alert(err))
+            .catch(err => {
+                console.error('Request failed:', err);
+                // Don't show alert for authentication errors since we're logging out
+                if (!err.message?.includes('session has expired')) {
+                    alert(err);
+                }
+            })
             .finally(() => setLoading(false));
     }, [endpoint]);
 
