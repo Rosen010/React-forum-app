@@ -2,31 +2,32 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import UserContext from "../../contexts/UserContext";
+import { validators } from "../../utils/validationUtils";
+import FormField from "../formField/FormField";
 
 export default function Login() {
     const navigate = useNavigate();
     const { loginHandler } = useContext(UserContext);
 
     const submitHandler = async ({ email, password }) => {
-        if (!email || !password) {
-            return alert('Email and password are required!');
-        }
-
         try {
             await loginHandler(email, password);
-
             navigate('/');
         } catch (err) {
-            alert(err.message);
+            alert(err.message || 'Login failed. Please check your credentials.');
         }
     }
 
     const {
         register,
         formAction,
+        getFieldError,
     } = useForm(submitHandler, {
         email: '',
         password: '',
+    }, {
+        email: [validators.required, validators.email],
+        password: [validators.required, validators.minLength(3)],
     });
 
     return (
@@ -36,32 +37,38 @@ export default function Login() {
                     <h2 className="text-2xl font-bold text-white mb-6">Welcome Back</h2>
 
                     <form className="space-y-6" action={formAction}>
-
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                                Email
-                            </label>
+                        <FormField 
+                            label="Email" 
+                            error={getFieldError('email')}
+                            required
+                        >
                             <input
                                 type="email"
                                 id="email"
                                 {...register('email')}
-                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className={`w-full px-4 py-2 bg-gray-700 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                    getFieldError('email') ? 'border-red-500' : 'border-gray-600'
+                                }`}
                                 placeholder="your@email.com"
                             />
-                        </div>
+                        </FormField>
 
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
-                                Password
-                            </label>
+                        <FormField 
+                            label="Password" 
+                            error={getFieldError('password')}
+                            required
+                        >
                             <input
                                 type="password"
                                 id="password"
                                 {...register('password')}
-                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className={`w-full px-4 py-2 bg-gray-700 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                    getFieldError('password') ? 'border-red-500' : 'border-gray-600'
+                                }`}
                                 placeholder="Enter your password"
                             />
-                        </div>
+                        </FormField>
+
                         <button
                             type="submit"
                             className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-md font-medium transition-colors">

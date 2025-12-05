@@ -2,101 +2,112 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import useForm from "../../hooks/useForm";
+import { validators } from "../../utils/validationUtils";
+import FormField from "../formField/FormField";
 
 export default function Register() {
     const navigate = useNavigate();
     const { registerHandler } = useContext(UserContext);
 
     const registerSubmitHandler = async (values) => {
-        const { email, password, confirmPassword, profilePicture } = values;
-
-        if (!email || !password) {
-            return alert('Email and password are required!');
-        }
-
-        if (password !== confirmPassword) {
-            return alert('Password missmatch!');
-        }
+        const { email, password, profilePicture } = values;
 
         try {
             await registerHandler(email, password, profilePicture);
-
             navigate('/');
         } catch (err) {
-            alert(err.message);
+            alert(err.message || 'Registration failed. Please try again.');
         }
     }
 
     const {
         register,
         formAction,
+        getFieldError,
     } = useForm(registerSubmitHandler, {
         email: '',
         password: '',
         confirmPassword: '',
         profilePicture: '',
+    }, {
+        email: [validators.required, validators.email],
+        password: [validators.required, validators.minLength(6)],
+        confirmPassword: [
+            validators.required,
+            validators.matchField('password', 'password')
+        ],
+        profilePicture: [validators.url],
     });
-
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
-
             <div className="max-w-md mx-auto px-4 py-12">
                 <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
                     <h2 className="text-2xl font-bold text-white mb-6">Create Account</h2>
 
                     <form className="space-y-6" action={formAction}>
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                                Email
-                            </label>
+                        <FormField 
+                            label="Email" 
+                            error={getFieldError('email')}
+                            required
+                        >
                             <input
                                 type="email"
                                 id="email"
                                 {...register('email')}
-                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className={`w-full px-4 py-2 bg-gray-700 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                    getFieldError('email') ? 'border-red-500' : 'border-gray-600'
+                                }`}
                                 placeholder="your@email.com"
                             />
-                        </div>
+                        </FormField>
 
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
-                                Password
-                            </label>
+                        <FormField 
+                            label="Password" 
+                            error={getFieldError('password')}
+                            required
+                        >
                             <input
                                 type="password"
                                 id="password"
                                 {...register('password')}
-                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Enter your password"
+                                className={`w-full px-4 py-2 bg-gray-700 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                    getFieldError('password') ? 'border-red-500' : 'border-gray-600'
+                                }`}
+                                placeholder="At least 6 characters"
                             />
-                        </div>
+                        </FormField>
 
-                        <div>
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
-                                Confirm Password
-                            </label>
+                        <FormField 
+                            label="Confirm Password" 
+                            error={getFieldError('confirmPassword')}
+                            required
+                        >
                             <input
                                 type="password"
                                 id="confirmPassword"
                                 {...register('confirmPassword')}
-                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className={`w-full px-4 py-2 bg-gray-700 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                    getFieldError('confirmPassword') ? 'border-red-500' : 'border-gray-600'
+                                }`}
                                 placeholder="Confirm your password"
                             />
-                        </div>
+                        </FormField>
 
-                        <div>
-                            <label htmlFor="profilePicture" className="block text-sm font-medium text-gray-300 mb-2">
-                                Profile Picture Link
-                            </label>
+                        <FormField 
+                            label="Profile Picture URL (Optional)" 
+                            error={getFieldError('profilePicture')}
+                        >
                             <input
                                 type="text"
                                 id="profilePicture"
                                 {...register('profilePicture')}
-                                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Profile Picture Link"
+                                className={`w-full px-4 py-2 bg-gray-700 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                    getFieldError('profilePicture') ? 'border-red-500' : 'border-gray-600'
+                                }`}
+                                placeholder="https://example.com/avatar.jpg"
                             />
-                        </div>
+                        </FormField>
 
                         <button
                             type="submit"
