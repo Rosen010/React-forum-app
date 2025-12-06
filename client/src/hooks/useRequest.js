@@ -6,7 +6,7 @@ const baseUrl = 'http://localhost:3030';
 export default function useRequest(endpoint, initialState) {
     const { user, isAuthenticated, clearSession } = useContext(UserContext);
     const [data, setData] = useState(initialState);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(!!endpoint);
 
     const request = async (endpoint, method, data, config = {}) => {
         let options = {};
