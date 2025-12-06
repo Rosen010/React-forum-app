@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
+import styles from './Categories.module.css';
 
 export default function Categories() {
     const [searchParams] = useSearchParams();
@@ -15,29 +16,31 @@ export default function Categories() {
 
     return (
         <div className="lg:col-span-1">
-            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-                <h2 className="text-lg font-semibold mb-4 text-white">Categories</h2>
-                <ul className="space-y-2">
-                    <li>
+            <div className={styles.categoriesCard}>
+                <h2 className={styles.categoriesTitle}>Categories</h2>
+                <ul className={styles.categoriesList}>
+                    <li className={styles.categoryItem}>
                         <Link
                             to="/"
-                            className={`block px-3 py-2 rounded-md transition-colors ${!selectedCategory
-                                    ? 'bg-blue-600 text-white'
-                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                }`}
+                            className={`${styles.categoryLink} ${
+                                !selectedCategory 
+                                    ? styles.categoryLinkActive 
+                                    : styles.categoryLinkInactive
+                            }`}
                         >
                             All Categories
                         </Link>
                     </li>
 
                     {categories.map(category => (
-                        <li key={category}>
+                        <li key={category} className={styles.categoryItem}>
                             <Link
                                 to={`/?category=${encodeURIComponent(category)}`}
-                                className={`block px-3 py-2 rounded-md transition-colors ${selectedCategory === category
-                                        ? 'bg-blue-600 text-white'
-                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                                    }`}
+                                className={`${styles.categoryLink} ${
+                                    selectedCategory === category
+                                        ? styles.categoryLinkActive
+                                        : styles.categoryLinkInactive
+                                }`}
                             >
                                 {category}
                             </Link>
@@ -45,7 +48,7 @@ export default function Categories() {
                     ))}
 
                     {categories.length === 0 && (
-                        <li className="text-gray-500 text-sm px-3 py-2">
+                        <li className={styles.emptyState}>
                             No categories yet
                         </li>
                     )}

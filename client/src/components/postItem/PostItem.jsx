@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { getUserInitials } from "../../utils/userUtils";
+import styles from './PostItem.module.css';
 
 export default function PostItem({ post }) {
     const {
@@ -12,40 +13,38 @@ export default function PostItem({ post }) {
 
     return (
         <Link to={`/posts/${_id}`}>
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-6" >
-                <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                        <h3 className="text-lg font-medium text-white mb-2">
+            <div className={styles.postCard}>
+                <div className={styles.postContent}>
+                    <div className={styles.postBody}>
+                        <h3 className={styles.postTitle}>
                             {title}
                         </h3>
-                        <p className="text-gray-300 mb-4">
+                        <p className={styles.postText}>
                             {content}
                         </p>
-                        <div className="flex items-center space-x-4 text-sm text-gray-400">
+                        <div className={styles.postMeta}>
                             <span>By: {author.email}</span>
-                            <span>•</span>
+                            <span className={styles.metaSeparator}>•</span>
                             <span>{new Date(_createdOn).toLocaleString()}</span>
                         </div>
                     </div>
-                    <div className="ml-4">
+                    <div className={styles.authorSection}>
                         {author.profilePicture ? (
-                            <div className="ml-4">
-                                <img
-                                    src={author.profilePicture}
-                                    alt={author.email}
-                                    className="w-12 h-12 rounded-full object-cover border border-gray-600"
-                                />
-                            </div>
+                            <img
+                                src={author.profilePicture}
+                                alt={author.email}
+                                className={styles.authorImage}
+                            />
                         ) : (
-                            <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center">
-                                <span className="text-sm font-medium">
+                            <div className={styles.authorPlaceholder}>
+                                <span>
                                     {getUserInitials(author?.email)}
                                 </span>
                             </div>
                         )}
                     </div>
                 </div>
-            </div >
+            </div>
         </Link>
     );
 }
