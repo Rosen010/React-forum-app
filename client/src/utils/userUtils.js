@@ -5,16 +5,24 @@
  * 
  * @example
  * getUserInitials('john.doe@example.com') // returns 'JD'
- * getUserInitials('jane@example.com') // returns 'J'
+ * getUserInitials('jane@example.com') // returns 'JA'
  */
 export function getUserInitials(email) {
-    if (!email) {
-        return '';
-    };
+    if (!email || typeof email !== 'string' || !email.trim()) {
+        return '??';
+    }
     
-    return email
-        .split(' ')
-        .map(n => n[0])
-        .join('')
-        .toUpperCase();
+    // Get the part before @ symbol
+    const username = email.split('@')[0];
+    
+    // Split by common separators (., _, -)
+    const parts = username.split(/[._-]/);
+    
+    if (parts.length >= 2) {
+        // If we have multiple parts, take first letter of first two parts
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+    } else {
+        // If single word, take first two letters
+        return username.slice(0, 2).toUpperCase();
+    }
 }
